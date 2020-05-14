@@ -38,6 +38,24 @@ public class StarterUI {
                 .build();
         return button;
     }
+    private static Button buildShinyStarterPokemonButton(EnumSpecies species, EntityPlayerMP player, boolean isShiny){
+        Pokemon poke = Pixelmon.pokemonFactory.create(species);
+        poke.setShiny(isShiny);
+        MinecraftServer server = FMLCommonHandler.instance().getMinecraftServerInstance();
+        Button button = Button.builder()
+                .displayName("§e"+species.name)
+                .item(ItemPixelmonSprite.getPhoto(poke))
+                .lore(Arrays.asList("§7Are you sure you want §e"+species.name+" §7as your starter?"))
+                .onClick(buttonAction ->  {
+                    player.getServer().getCommandManager().executeCommand(server, "pokegive "+ buttonAction.getPlayer().getName() +" "+species.name+" level:5 s");
+                    player.getServer().getCommandManager().executeCommand(server, "plaintell "+ buttonAction.getPlayer().getName()+ " §6§lOak §8§l>§r §7It's dangerous to go alone, take your partner with you!");
+                    player.getServer().getCommandManager().executeCommand(server, "plaintell "+ buttonAction.getPlayer().getName()+ " §7You received §e"+species.name+"§7,§b "+ buttonAction.getPlayer().getName()+"§7!");
+                    player.getServer().getCommandManager().executeCommand(server, "lp user "+ buttonAction.getPlayer().getName()+ " permission set itsdangeroustogoalone.command.starters false");
+                    InventoryAPI.getInstance().closePlayerInventory(player);
+                })
+                .build();
+        return button;
+    }
     private static Button back(EntityPlayerMP player, boolean isShinyMenu){
         if(isShinyMenu){
             Button back = Button.builder()
@@ -410,9 +428,9 @@ public class StarterUI {
                 .displayName("")
                 .build();
 
-        Button bulbasaur = buildStarterPokemonButton(EnumSpecies.Bulbasaur, player, true);
-        Button charmander = buildStarterPokemonButton(EnumSpecies.Charmander, player, true);
-        Button squirtle = buildStarterPokemonButton(EnumSpecies.Squirtle, player, true);
+        Button bulbasaur = buildShinyStarterPokemonButton(EnumSpecies.Bulbasaur, player, true);
+        Button charmander = buildShinyStarterPokemonButton(EnumSpecies.Charmander, player, true);
+        Button squirtle = buildShinyStarterPokemonButton(EnumSpecies.Squirtle, player, true);
 
         Template template = Template.builder(5)
                 .fill(panes)
@@ -433,9 +451,9 @@ public class StarterUI {
                 .displayName("")
                 .build();
 
-        Button chikorita = buildStarterPokemonButton(EnumSpecies.Bulbasaur, player, true);
-        Button cyndaquil = buildStarterPokemonButton(EnumSpecies.Charmander, player, true);
-        Button totodile = buildStarterPokemonButton(EnumSpecies.Squirtle, player, true);
+        Button chikorita = buildShinyStarterPokemonButton(EnumSpecies.Chikorita, player, true);
+        Button cyndaquil = buildShinyStarterPokemonButton(EnumSpecies.Cyndaquil, player, true);
+        Button totodile = buildShinyStarterPokemonButton(EnumSpecies.Totodile, player, true);
 
         Template template = Template.builder(5)
                 .fill(panes)
@@ -456,9 +474,9 @@ public class StarterUI {
                 .displayName("")
                 .build();
 
-        Button treecko = buildStarterPokemonButton(EnumSpecies.Treecko, player, true);
-        Button torchic = buildStarterPokemonButton(EnumSpecies.Torchic, player, true);
-        Button mudkip = buildStarterPokemonButton(EnumSpecies.Mudkip, player, true);
+        Button treecko = buildShinyStarterPokemonButton(EnumSpecies.Treecko, player, true);
+        Button torchic = buildShinyStarterPokemonButton(EnumSpecies.Torchic, player, true);
+        Button mudkip = buildShinyStarterPokemonButton(EnumSpecies.Mudkip, player, true);
 
         Template template = Template.builder(5)
                 .fill(panes)
@@ -479,9 +497,9 @@ public class StarterUI {
                 .displayName("")
                 .build();
 
-        Button turtwig = buildStarterPokemonButton(EnumSpecies.Turtwig, player, true);
-        Button chimchar = buildStarterPokemonButton(EnumSpecies.Chimchar, player, true);
-        Button piplup = buildStarterPokemonButton(EnumSpecies.Piplup, player, true);
+        Button turtwig = buildShinyStarterPokemonButton(EnumSpecies.Turtwig, player, true);
+        Button chimchar = buildShinyStarterPokemonButton(EnumSpecies.Chimchar, player, true);
+        Button piplup = buildShinyStarterPokemonButton(EnumSpecies.Piplup, player, true);
 
         Template template = Template.builder(5)
                 .fill(panes)
@@ -502,9 +520,9 @@ public class StarterUI {
                 .displayName("")
                 .build();
 
-        Button snivy = buildStarterPokemonButton(EnumSpecies.Snivy, player, true);
-        Button tepig = buildStarterPokemonButton(EnumSpecies.Tepig, player, true);
-        Button oshawott = buildStarterPokemonButton(EnumSpecies.Oshawott, player, true);
+        Button snivy = buildShinyStarterPokemonButton(EnumSpecies.Snivy, player, true);
+        Button tepig = buildShinyStarterPokemonButton(EnumSpecies.Tepig, player, true);
+        Button oshawott = buildShinyStarterPokemonButton(EnumSpecies.Oshawott, player, true);
 
         Template template = Template.builder(5)
                 .fill(panes)
@@ -525,9 +543,9 @@ public class StarterUI {
                 .displayName("")
                 .build();
 
-        Button chespin = buildStarterPokemonButton(EnumSpecies.Chespin, player, true);
-        Button fennekin = buildStarterPokemonButton(EnumSpecies.Fennekin, player, true);
-        Button froakie = buildStarterPokemonButton(EnumSpecies.Froakie, player, true);
+        Button chespin = buildShinyStarterPokemonButton(EnumSpecies.Chespin, player, true);
+        Button fennekin = buildShinyStarterPokemonButton(EnumSpecies.Fennekin, player, true);
+        Button froakie = buildShinyStarterPokemonButton(EnumSpecies.Froakie, player, true);
 
         Template template = Template.builder(5)
                 .fill(panes)
@@ -548,9 +566,9 @@ public class StarterUI {
                 .displayName("")
                 .build();
 
-        Button rowlet = buildStarterPokemonButton(EnumSpecies.Rowlet, player, true);
-        Button litten = buildStarterPokemonButton(EnumSpecies.Litten, player, true);
-        Button popplio = buildStarterPokemonButton(EnumSpecies.Popplio, player, true);
+        Button rowlet = buildShinyStarterPokemonButton(EnumSpecies.Rowlet, player, true);
+        Button litten = buildShinyStarterPokemonButton(EnumSpecies.Litten, player, true);
+        Button popplio = buildShinyStarterPokemonButton(EnumSpecies.Popplio, player, true);
 
         Template template = Template.builder(5)
                 .fill(panes)
