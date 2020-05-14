@@ -128,43 +128,43 @@ public class StarterUI {
         Button gen1 = Button.builder()
                 .item(new ItemStack(PixelmonItemsPokeballs.pokeBall))
                 .displayName("§9Generation 1 Starter Pokemon")
-                .onClick(buttonAction -> {StarterUI.Gen1(player).forceOpenPage(player);})
+                .onClick(buttonAction -> {StarterUI.Gen(player, EnumSpecies.Bulbasaur).forceOpenPage(player);})
                 .build();
 
         Button gen2 = Button.builder()
                 .item(new ItemStack(PixelmonItemsPokeballs.pokeBall))
                 .displayName("§9Generation 2 Starter Pokemon")
-                .onClick(buttonAction -> {StarterUI.Gen2(player).forceOpenPage(player);})
+                .onClick(buttonAction -> {StarterUI.Gen(player, EnumSpecies.Chikorita).forceOpenPage(player);})
                 .build();
 
         Button gen3 = Button.builder()
                 .item(new ItemStack(PixelmonItemsPokeballs.pokeBall))
                 .displayName("§9Generation 3 Starter Pokemon")
-                .onClick(buttonAction -> {StarterUI.Gen3(player).forceOpenPage(player);})
+                .onClick(buttonAction -> {StarterUI.Gen(player, EnumSpecies.Treecko).forceOpenPage(player);})
                 .build();
 
         Button gen4 = Button.builder()
                 .item(new ItemStack(PixelmonItemsPokeballs.pokeBall))
                 .displayName("§9Generation 4 Starter Pokemon")
-                .onClick(buttonAction -> {StarterUI.Gen4(player).forceOpenPage(player);})
+                .onClick(buttonAction -> {StarterUI.Gen(player, EnumSpecies.Turtwig).forceOpenPage(player);})
                 .build();
 
         Button gen5 = Button.builder()
                 .item(new ItemStack(PixelmonItemsPokeballs.pokeBall))
                 .displayName("§9Generation 5 Starter Pokemon")
-                .onClick(buttonAction -> {StarterUI.Gen5(player).forceOpenPage(player);})
+                .onClick(buttonAction -> {StarterUI.Gen(player, EnumSpecies.Snivy).forceOpenPage(player);})
                 .build();
 
         Button gen6 = Button.builder()
                 .item(new ItemStack(PixelmonItemsPokeballs.pokeBall))
                 .displayName("§9Generation 6 Starter Pokemon")
-                .onClick(buttonAction -> {StarterUI.Gen6(player).forceOpenPage(player);})
+                .onClick(buttonAction -> {StarterUI.Gen(player, EnumSpecies.Chespin).forceOpenPage(player);})
                 .build();
 
         Button gen7 = Button.builder()
                 .item(new ItemStack(PixelmonItemsPokeballs.pokeBall))
                 .displayName("§9Generation 7 Starter Pokemon")
-                .onClick(buttonAction -> {StarterUI.Gen7(player).forceOpenPage(player);})
+                .onClick(buttonAction -> {StarterUI.Gen(player, EnumSpecies.Rowlet).forceOpenPage(player);})
                 .build();
 
         Button back = Button.builder()
@@ -261,165 +261,27 @@ public class StarterUI {
                 .title("§6Shiny Starter Pokemon")
                 .build();
     }
-    public static Page Gen1(EntityPlayerMP player) {
+    public static Page Gen(EntityPlayerMP player, EnumSpecies firstStarter) {
         Button panes = Button.builder()
                 .item(new ItemStack(Blocks.STAINED_GLASS_PANE, 1, EnumDyeColor.GRAY.getMetadata()))
                 .displayName("")
                 .build();
 
-        Button bulbasaur = buildStarterPokemonButton(EnumSpecies.Bulbasaur, player, false);
-        Button charmander = buildStarterPokemonButton(EnumSpecies.Charmander, player, false);
-        Button squirtle = buildStarterPokemonButton(EnumSpecies.Squirtle, player, false);
+        Button first = buildStarterPokemonButton(firststarter, player, false);
+        Button second = buildStarterPokemonButton(EnumSpecies.getFromDex(firststarter.getNationalPokedexInteger() + 1), player, false);
+        Button third = buildStarterPokemonButton(EnumSpecies.getFromDex(firststarter.getNationalPokedexInteger() + 2), player, false);
 
         Template template = Template.builder(5)
                 .fill(panes)
                 .set(3, 4, back(player, false))
-                .set(1, 1, bulbasaur)
-                .set(1, 4, charmander)
-                .set(1, 7, squirtle)
+                .set(1, 1, first)
+                .set(1, 4, second)
+                .set(1, 7, third)
                 .build();
 
         return Page.builder()
                 .template(template)
-                .title("§4Gen 1 Starter Pokemon")
-                .build();
-    }
-    public static Page Gen2(EntityPlayerMP player) {
-        Button panes = Button.builder()
-                .item(new ItemStack(Blocks.STAINED_GLASS_PANE, 1, EnumDyeColor.GRAY.getMetadata()))
-                .displayName("")
-                .build();
-
-        Button chikorita = buildStarterPokemonButton(EnumSpecies.Chikorita, player, false);
-        Button cyndaquil = buildStarterPokemonButton(EnumSpecies.Cyndaquil, player, false);
-        Button totodile = buildStarterPokemonButton(EnumSpecies.Totodile, player, false);
-
-        Template template = Template.builder(5)
-                .fill(panes)
-                .set(3, 4, back(player, false))
-                .set(1, 1, chikorita)
-                .set(1, 4, cyndaquil)
-                .set(1, 7, totodile)
-                .build();
-
-        return Page.builder()
-                .template(template)
-                .title("§4Gen 2 Starter Pokemon")
-                .build();
-    }
-    public static Page Gen3 (EntityPlayerMP player) {
-        Button panes = Button.builder()
-                .item(new ItemStack(Blocks.STAINED_GLASS_PANE, 1, EnumDyeColor.GRAY.getMetadata()))
-                .displayName("")
-                .build();
-
-        Button treecko = buildStarterPokemonButton(EnumSpecies.Treecko, player, false);
-        Button torchic = buildStarterPokemonButton(EnumSpecies.Torchic, player, false);
-        Button mudkip = buildStarterPokemonButton(EnumSpecies.Mudkip, player, false);
-
-        Template template = Template.builder(5)
-                .fill(panes)
-                .set(3, 4, back(player, false))
-                .set(1, 1, treecko)
-                .set(1, 4, torchic)
-                .set(1, 7, mudkip)
-                .build();
-
-        return Page.builder()
-                .template(template)
-                .title("§4Gen 3 Starter Pokemon")
-                .build();
-    }
-    public static Page Gen4(EntityPlayerMP player) {
-        Button panes = Button.builder()
-                .item(new ItemStack(Blocks.STAINED_GLASS_PANE, 1, EnumDyeColor.GRAY.getMetadata()))
-                .displayName("")
-                .build();
-
-        Button turtwig = buildStarterPokemonButton(EnumSpecies.Turtwig, player, false);
-        Button chimchar = buildStarterPokemonButton(EnumSpecies.Chimchar, player, false);
-        Button piplup = buildStarterPokemonButton(EnumSpecies.Piplup, player, false);
-
-        Template template = Template.builder(5)
-                .fill(panes)
-                .set(3, 4, back(player, false))
-                .set(1, 1, turtwig)
-                .set(1, 4, chimchar)
-                .set(1, 7, piplup)
-                .build();
-
-        return Page.builder()
-                .template(template)
-                .title("§4Gen 4 Starter Pokemon")
-                .build();
-    }
-    public static Page Gen5(EntityPlayerMP player) {
-        Button panes = Button.builder()
-                .item(new ItemStack(Blocks.STAINED_GLASS_PANE, 1, EnumDyeColor.GRAY.getMetadata()))
-                .displayName("")
-                .build();
-
-        Button snivy = buildStarterPokemonButton(EnumSpecies.Snivy, player, false);
-        Button tepig = buildStarterPokemonButton(EnumSpecies.Tepig, player, false);
-        Button oshawott = buildStarterPokemonButton(EnumSpecies.Oshawott, player, false);
-
-        Template template = Template.builder(5)
-                .fill(panes)
-                .set(3, 4, back(player, false))
-                .set(1, 1, snivy)
-                .set(1, 4, tepig)
-                .set(1, 7, oshawott)
-                .build();
-
-        return Page.builder()
-                .template(template)
-                .title("§4Gen 5 Starter Pokemon")
-                .build();
-    }
-    public static Page Gen6(EntityPlayerMP player) {
-        Button panes = Button.builder()
-                .item(new ItemStack(Blocks.STAINED_GLASS_PANE, 1, EnumDyeColor.GRAY.getMetadata()))
-                .displayName("")
-                .build();
-
-        Button chespin = buildStarterPokemonButton(EnumSpecies.Chespin, player, false);
-        Button fennekin = buildStarterPokemonButton(EnumSpecies.Fennekin, player, false);
-        Button froakie = buildStarterPokemonButton(EnumSpecies.Squirtle, player, false);
-
-        Template template = Template.builder(5)
-                .fill(panes)
-                .set(3, 4, back(player, false))
-                .set(1, 1, chespin)
-                .set(1, 4, fennekin)
-                .set(1, 7, froakie)
-                .build();
-
-        return Page.builder()
-                .template(template)
-                .title("§4Gen 6 Starter Pokemon")
-                .build();
-    }
-    public static Page Gen7(EntityPlayerMP player) {
-        Button panes = Button.builder()
-                .item(new ItemStack(Blocks.STAINED_GLASS_PANE, 1, EnumDyeColor.GRAY.getMetadata()))
-                .displayName("")
-                .build();
-
-        Button rowlet = buildStarterPokemonButton(EnumSpecies.Rowlet, player, false);
-        Button litten = buildStarterPokemonButton(EnumSpecies.Litten, player, false);
-        Button popplio = buildStarterPokemonButton(EnumSpecies.Popplio, player, false);
-
-        Template template = Template.builder(5)
-                .fill(panes)
-                .set(3, 4, back(player, false))
-                .set(1, 1, rowlet)
-                .set(1, 4, litten)
-                .set(1, 7, popplio)
-                .build();
-
-        return Page.builder()
-                .template(template)
-                .title("§4Gen 7 Starter Pokemon")
+                .title("§4Gen " + firststarter.getGeneration() + " Starter Pokemon")
                 .build();
     }
     public static Page ShinyGen1(EntityPlayerMP player) {
