@@ -1,6 +1,6 @@
 package com.winglet.itsdangeroustogoalone.commands;
 
-import com.winglet.itsdangeroustogoalone.StarterUI;
+import com.winglet.itsdangeroustogoalone.UIBuild.Pages;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -24,7 +24,7 @@ public class StarterCommand extends CommandBase {
         if (sender instanceof EntityPlayerMP) {
             EntityPlayerMP player = (EntityPlayerMP) sender;
             if (player.canUseCommand(0, "itsdangeroustogoalone.command.starters")) {
-                StarterUI.StarterSelect(player).forceOpenPage(player);
+                Pages.StarterSelect(player).forceOpenPage(player);
             }
         } else {
             server.sendMessage(new TextComponentString("&cYou don't have permission!"));
