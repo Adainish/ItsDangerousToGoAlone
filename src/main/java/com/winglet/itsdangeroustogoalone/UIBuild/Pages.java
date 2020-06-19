@@ -115,6 +115,13 @@ public class Pages {
                     Pages.ShinyGen(player, EnumSpecies.Rowlet).forceOpenPage(player);})
                 .build();
 
+        Button gen8 = Button.builder()
+                .item(new ItemStack(PixelmonItemsPokeballs.pokeBall))
+                .displayName("§9Generation 8 Starter Pokemon")
+                .onClick(buttonAction -> {
+                    Pages.ShinyGen(player, EnumSpecies.Grookey).forceOpenPage(player);})
+                .build();
+
         Button back = Button.builder()
                 .item(new ItemStack(PixelmonItemsHeld.ejectButton))
                 .displayName("§7Click to go back.")
@@ -130,6 +137,7 @@ public class Pages {
                 .set(1, 5, gen5)
                 .set(1, 6, gen6)
                 .set(1, 7, gen7)
+                .set(1, 8, gen8)
                 .set(3, 4, back)
                 .build();
 
@@ -139,13 +147,13 @@ public class Pages {
                 .build();
     }
     public static Page StarterSelect(EntityPlayerMP player) {
-        Button greenPane = Button.builder()
-                .item(new ItemStack(Blocks.STAINED_GLASS_PANE, 1, EnumDyeColor.LIME.getMetadata()))
+        Button redPane = Button.builder()
+                .item(new ItemStack(Blocks.STAINED_GLASS_PANE, 1, EnumDyeColor.RED.getMetadata()))
                 .displayName("")
                 .build();
 
-        Button bluePane = Button.builder()
-                .item(new ItemStack(Blocks.STAINED_GLASS_PANE, 1, EnumDyeColor.LIGHT_BLUE.getMetadata()))
+        Button orangePane = Button.builder()
+                .item(new ItemStack(Blocks.STAINED_GLASS_PANE, 1, EnumDyeColor.ORANGE.getMetadata()))
                 .displayName("")
                 .build();
 
@@ -167,9 +175,9 @@ public class Pages {
         for (int i = 0; i < 5; i++) {
             for(int j = 0; j < 9; j++) {
                 if ((i % 2 == 0 && j %2 == 0) || (i % 2 != 0 && j %2 != 0)){
-                    template.toBuilder().set(i, j, greenPane);
+                    template.toBuilder().set(i, j, redPane);
                 } else {
-                    template.toBuilder().set(i, j, bluePane);
+                    template.toBuilder().set(i, j, orangePane);
                 }
             }
         }
@@ -240,6 +248,13 @@ public class Pages {
                     Pages.Gen(player, EnumSpecies.Rowlet).forceOpenPage(player);})
                 .build();
 
+        Button gen8 = Button.builder()
+                .item(new ItemStack(PixelmonItemsPokeballs.pokeBall))
+                .displayName("§9Generation 8 Starter Pokemon")
+                .onClick(buttonAction -> {
+                    Pages.Gen(player, EnumSpecies.Grookey).forceOpenPage(player);})
+                .build();
+
         Button back = Button.builder()
                 .item(new ItemStack(PixelmonItemsHeld.ejectButton))
                 .displayName("§7Click to go back.")
@@ -256,6 +271,7 @@ public class Pages {
                 .set(1, 5, gen5)
                 .set(1, 6, gen6)
                 .set(1, 7, gen7)
+                .set(1, 7, gen8)
                 .set(3, 4, back)
                 .build();
 
