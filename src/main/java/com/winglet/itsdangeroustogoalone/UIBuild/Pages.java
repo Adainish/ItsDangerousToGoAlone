@@ -14,19 +14,19 @@ import net.minecraft.item.ItemStack;
 import static com.winglet.itsdangeroustogoalone.UIBuild.Buttons.*;
 
 public class Pages {
-    public static Page Gen(EntityPlayerMP player, EnumSpecies firstStarter) {
+    public static Page Gen(EntityPlayerMP player, EnumSpecies firstStarter, boolean isShiny) {
         Button panes = Button.builder()
                 .item(new ItemStack(Blocks.STAINED_GLASS_PANE, 1, EnumDyeColor.GRAY.getMetadata()))
                 .displayName("")
                 .build();
 
-        Button first = buildStarterPokemonButton(firstStarter, player, false);
-        Button second = buildStarterPokemonButton(EnumSpecies.getFromDex(firstStarter.getNationalPokedexInteger() + 3), player, false);
-        Button third = buildStarterPokemonButton(EnumSpecies.getFromDex(firstStarter.getNationalPokedexInteger() + 6), player, false);
+        Button first = buildStarterPokemonButton(firstStarter, player, isShiny);
+        Button second = buildStarterPokemonButton(EnumSpecies.getFromDex(firstStarter.getNationalPokedexInteger() + 3), player, isShiny);
+        Button third = buildStarterPokemonButton(EnumSpecies.getFromDex(firstStarter.getNationalPokedexInteger() + 6), player, isShiny);
 
         Template template = Template.builder(5)
                 .fill(panes)
-                .set(3, 4, back(player, false))
+                .set(3, 4, back(player, isShiny))
                 .set(1, 1, first)
                 .set(1, 4, second)
                 .set(1, 7, third)
@@ -34,31 +34,9 @@ public class Pages {
 
         return Page.builder()
                 .template(template)
-                .title("§4Gen " + firstStarter.getGeneration() + " Starter Pokemon")
+                .title("§4Gen " + firstStarter.getGeneration() + isShiny ? "§6Shiny" : "" + " Starter Pokemon")
                 .build();
-    }
-    public static Page ShinyGen(EntityPlayerMP player, EnumSpecies firstStarter) {
-        Button panes = Button.builder()
-                .item(new ItemStack(Blocks.STAINED_GLASS_PANE, 1, EnumDyeColor.GRAY.getMetadata()))
-                .displayName("")
-                .build();
-
-        Button first = buildShinyStarterPokemonButton(firstStarter, player, true);
-        Button second = buildShinyStarterPokemonButton(EnumSpecies.getFromDex(firstStarter.getNationalPokedexInteger() + 3), player, true);
-        Button third = buildShinyStarterPokemonButton(EnumSpecies.getFromDex(firstStarter.getNationalPokedexInteger() + 6), player, true);
-
-        Template template = Template.builder(5)
-                .fill(panes)
-                .set(3, 4, back(player, true))
-                .set(1, 1, first)
-                .set(1, 4, second)
-                .set(1, 7, third)
-                .build();
-
-        return Page.builder()
-                .template(template)
-                .title("§4Gen " + firstStarter.getGeneration() + "§6Shiny Starter Pokemon")
-                .build();
+       
     }
     public static Page ShinyStartersMenu(EntityPlayerMP player) {
         Button panes = Button.builder()
