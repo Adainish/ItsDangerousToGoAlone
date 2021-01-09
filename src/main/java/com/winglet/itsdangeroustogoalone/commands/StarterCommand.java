@@ -7,6 +7,9 @@ import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.text.TextComponentString;
 
+import java.util.Arrays;
+import java.util.List;
+
 public class StarterCommand extends CommandBase {
 
     @Override
@@ -17,6 +20,11 @@ public class StarterCommand extends CommandBase {
     @Override
     public String getUsage(ICommandSender sender) {
         return "/starters (player)";
+    }
+
+    @Override
+    public List<String> getAliases() {
+        return Arrays.asList("liststarters", "startermenu");
     }
 
     @Override

@@ -7,11 +7,13 @@ import com.pixelmonmod.pixelmon.api.pokemon.Pokemon;
 import com.pixelmonmod.pixelmon.config.PixelmonItemsHeld;
 import com.pixelmonmod.pixelmon.enums.EnumSpecies;
 import com.pixelmonmod.pixelmon.items.ItemPixelmonSprite;
+import com.winglet.itsdangeroustogoalone.config.FileHandler;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.util.text.TextComponentString;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 
 import java.util.Arrays;
@@ -19,7 +21,7 @@ import java.util.Arrays;
 public class Buttons {
 
     public static Button panes = Button.builder()
-            .item(new ItemStack(Blocks.STAINED_GLASS_PANE, 1, EnumDyeColor.GRAY.getMetadata()))
+            .item(new ItemStack(Blocks.STAINED_GLASS_PANE, -1, EnumDyeColor.GRAY.getMetadata()))
             .displayName("")
             .build();
 
@@ -30,11 +32,11 @@ public class Buttons {
         Button button = Button.builder()
                 .displayName("§e"+species.name)
                 .item(ItemPixelmonSprite.getPhoto(poke))
-                .lore(Arrays.asList("§7Are you sure you want §e"+species.name+" §7as your starter?"))
+                .lore(Arrays.asList(FileHandler.config.getLoreSpeciesFront() + FileHandler.config.getSpeciesNameColour() +" " +species.name+ FileHandler.config.getLoreSpeciesBack()))
                 .onClick(buttonAction ->  {
-                    player.getServer().getCommandManager().executeCommand(server, "pokegive "+ buttonAction.getPlayer().getName() +" "+species.name+" level:5");
-                    player.getServer().getCommandManager().executeCommand(server, "plaintell "+ buttonAction.getPlayer().getName()+ " §6§lOak §8§l>§r §7It's dangerous to go alone, take your partner with you!");
-                    player.getServer().getCommandManager().executeCommand(server, "plaintell "+ buttonAction.getPlayer().getName()+ " §7You received §e"+species.name+"§7,§b "+ buttonAction.getPlayer().getName()+"§7!");
+                    player.getServer().getCommandManager().executeCommand(server, "pokegive "+ buttonAction.getPlayer().getName() +" "+species.name+" " +FileHandler.config.getSpecsNormal());
+                    player.sendMessage(new TextComponentString(FileHandler.config.getPrefix() + " " + FileHandler.config.getMessageProfessor()));
+                    player.sendMessage(new TextComponentString(FileHandler.config.getMessageProfessor2Front() + FileHandler.config.getSpeciesNameColour() + species.name));
                     player.getServer().getCommandManager().executeCommand(server, "lp user "+ buttonAction.getPlayer().getName()+ " permission set itsdangeroustogoalone.command.starters false");
                     InventoryAPI.getInstance().closePlayerInventory(player);
                 })
@@ -49,11 +51,11 @@ public class Buttons {
         Button button = Button.builder()
                 .displayName("§e"+species.name)
                 .item(ItemPixelmonSprite.getPhoto(poke))
-                .lore(Arrays.asList("§7Are you sure you want §e"+species.name+" §7as your starter?"))
+                .lore(Arrays.asList(FileHandler.config.getLoreSpeciesFront() + FileHandler.config.getSpeciesNameColour() +" " +species.name+ FileHandler.config.getLoreSpeciesBack()))
                 .onClick(buttonAction ->  {
-                    player.getServer().getCommandManager().executeCommand(server, "pokegive "+ buttonAction.getPlayer().getName() +" "+species.name+" level:5 s");
-                    player.getServer().getCommandManager().executeCommand(server, "plaintell "+ buttonAction.getPlayer().getName()+ " §6§lOak §8§l>§r §7It's dangerous to go alone, take your partner with you!");
-                    player.getServer().getCommandManager().executeCommand(server, "plaintell "+ buttonAction.getPlayer().getName()+ " §7You received §e"+species.name+"§7,§b "+ buttonAction.getPlayer().getName()+"§7!");
+                    player.getServer().getCommandManager().executeCommand(server, "pokegive "+ buttonAction.getPlayer().getName() +" "+species.name+" " +FileHandler.config.getSpecsShiny());
+                    player.sendMessage(new TextComponentString(FileHandler.config.getPrefix() + " " + FileHandler.config.getMessageProfessor()));
+                    player.sendMessage(new TextComponentString(FileHandler.config.getMessageProfessor2Front() + FileHandler.config.getSpeciesNameColour() + species.name));
                     player.getServer().getCommandManager().executeCommand(server, "lp user "+ buttonAction.getPlayer().getName()+ " permission set itsdangeroustogoalone.command.starters false");
                     InventoryAPI.getInstance().closePlayerInventory(player);
                 })
@@ -61,11 +63,20 @@ public class Buttons {
         return button;
     }
 
-    public static Button back(EntityPlayerMP player, boolean isShinyMenu){
-        if(isShinyMenu){
+    public static Button back(EntityPlayerMP player, boolean isShinyMenu, boolean isCS){
+        if(isCS){
             Button back = Button.builder()
                     .item(new ItemStack(PixelmonItemsHeld.ejectButton))
-                    .displayName("§7Click to go back.")
+                    .displayName(FileHandler.config.getButtonBack())
+                    .onClick(buttonAction -> {
+                        Pages.CustomStartersMenu(player).forceOpenPage(player);})
+                    .build();
+            return back;
+        }
+        else if(isShinyMenu){
+            Button back = Button.builder()
+                    .item(new ItemStack(PixelmonItemsHeld.ejectButton))
+                    .displayName(FileHandler.config.getButtonBack())
                     .onClick(buttonAction -> {
                         Pages.ShinyStartersMenu(player).forceOpenPage(player);})
                     .build();
@@ -73,11 +84,40 @@ public class Buttons {
         }else{
             Button back = Button.builder()
                     .item(new ItemStack(PixelmonItemsHeld.ejectButton))
-                    .displayName("§7Click to go back.")
+                    .displayName(FileHandler.config.getButtonBack())
                     .onClick(buttonAction -> {Pages.StartersMenu(player).forceOpenPage(player);})
                     .build();
             return back;
         }
     }
+
+    public static Button buildCustomSkinStarterPokemonButton(EnumSpecies species, EntityPlayerMP player, boolean isCS) {
+        Pokemon poke = Pixelmon.pokemonFactory.create(species);
+        MinecraftServer server = FMLCommonHandler.instance().getMinecraftServerInstance();
+        Button button = Button.builder()
+                .displayName("§e"+species.name)
+                .item(ItemPixelmonSprite.getPhoto(poke))
+                .lore(Arrays.asList(FileHandler.config.getLoreSpeciesFront() + FileHandler.config.getSpeciesNameColour() +"" +species.name+ FileHandler.config.getLoreSpeciesBack()))
+                .onClick(buttonAction ->  {
+                    player.getServer().getCommandManager().executeCommand(server, "pokegive "+ buttonAction.getPlayer().getName() +" "+species.name+" " +FileHandler.config.getSpecsCustom());
+                    player.sendMessage(new TextComponentString(FileHandler.config.getPrefix() + " " + FileHandler.config.getMessageProfessor()));
+                    player.sendMessage(new TextComponentString(FileHandler.config.getMessageProfessor2Front() + FileHandler.config.getSpeciesNameColour() + species.name));
+                    player.getServer().getCommandManager().executeCommand(server, "lp user "+ buttonAction.getPlayer().getName()+ " permission set itsdangeroustogoalone.command.starters false");
+                    InventoryAPI.getInstance().closePlayerInventory(player);
+                })
+                .build();
+        return button;
+    }
+
+    public static Button customskinback(EntityPlayerMP player) {
+        Button back = Button.builder()
+                .item(new ItemStack(PixelmonItemsHeld.ejectButton))
+                .displayName(FileHandler.config.getButtonBack())
+                .onClick(buttonAction -> {
+                    Pages.CustomStartersMenu(player).forceOpenPage(player);})
+                .build();
+        return back;
+    }
+
 
 }
